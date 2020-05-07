@@ -1,3 +1,4 @@
+-- Sample tournament database contisting of four tables.. teams player coach amd parent
 -- create data
 CREATE DATABASE tournament;
 
@@ -59,6 +60,112 @@ CREATE TABLE Parent(
     parent_lname VARCHAR(75),
     phone_number CHAR(12),
     PRIMARY KEY(parent_id),
-    child_id CHAR,
+    child_id CHAR(4),
     FOREIGN KEY(child_id) REFERENCES player(player_id) ON DELETE SET NULL
 );
+
+
+
+-- insert data into tables
+
+
+-- Team
+INSERT INTO Team
+VALUES(
+		1,
+    'West Ham',
+    '1997-08-15',
+    3,
+    '2013-09-15'
+);
+
+INSERT INTO Team
+VALUES(
+		2,
+    'Gloden F.C',
+    '1993-10-25',
+    7,
+    '2017-02-12'
+);
+
+
+-- Coach
+
+INSERT INTO coach
+VALUES(
+  'eb'  ,
+  'Ebrima',
+  'Bah',
+  'Heade coach',
+  3,
+  'Jam City',
+  1
+);
+
+INSERT INTO coach
+VALUES(
+  'es'  ,
+  'Eddy',
+  'Samba',
+  'Heade coach',
+  7,
+  'Jam City',
+  2
+);
+
+INSERT INTO coach
+VALUES(
+  'lj'  ,
+  'Lamin',
+  'Jarju',
+  'Assistant coach',
+  3,
+  'Jam City',
+  1
+);
+
+
+-- Player
+
+INSERT INTO player
+VALUES(
+    'ej',
+    'Ebrima',
+    'Jafuneh',
+    14,
+    1,
+    NULL    
+);
+
+-- update the foreign key parent_id to the player table
+
+UPDATE player
+SET parent_id = 10
+WHERE player_id = 'ej';
+
+INSERT INTO player
+VALUES(
+    'lt',
+    'Lamin',
+    'Touray',
+    18,
+    2,
+    NULL    
+);
+
+-- parent
+
+INSERT INTO Parent
+VALUES(
+    10,
+    'Mariama',
+    'Cessay',
+    '2345880',
+    NULL
+);
+
+-- update the foreign key child_id to the coach table
+
+UPDATE parent
+SET child_id = 'ej'
+WHERE parent_id = 10;

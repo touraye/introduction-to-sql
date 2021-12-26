@@ -9,8 +9,7 @@ CREATE TABLE department(
     PRIMARY KEY(dept_code)
 );
 
--- insert into department
-    dept_code VARCHAR(10) NOT NULL,
+-- insert into department    
 INSERT INTO department
 (dept_code, dept_name) 
 values('it', 'information technology');
@@ -18,6 +17,13 @@ INSERT INTO department(dept_code, dept_name) values('fn', 'financial department'
 INSERT INTO department(dept_code, dept_name) values('gnd', 'gender department');
 INSERT INTO department(dept_code, dept_name) values('bs', 'business studies');
 INSERT INTO department(dept_code, dept_name) values('hr', 'human resource');
+
+-- create HOD for each department
+UPDATE department SET dept_HOD = '14' WHERE dept_code = 'it';
+UPDATE department SET dept_HOD = '6' WHERE dept_code = 'fn';
+UPDATE department SET dept_HOD = '9' WHERE dept_code = 'gnd';
+UPDATE department SET dept_HOD = '10' WHERE dept_code = 'bs';
+UPDATE department SET dept_HOD = '13' WHERE dept_code = 'hr';
 
 
 
@@ -39,6 +45,10 @@ INSERT INTO employee
 (emp_lName, emp_fName,emp_init, emp_department)
  values('manneh', 'mariam', 'm', 'it');
 
+  INSERT INTO employee
+(emp_lName, emp_fName,emp_init, emp_department)
+ values('jarju', 'malang', 'm', 'it');
+
 -- finance dept
  INSERT INTO employee
 (emp_lName, emp_fName, emp_department)
@@ -49,7 +59,6 @@ INSERT INTO employee
  values('faye', 'mariam', 'm', 'fn');
 
 --  insert. into gender dept
-
 INSERT INTO employee
 (emp_lName, emp_fName, emp_department)
  values('jobe', 'lamin', 'gnd');
@@ -93,7 +102,15 @@ values('cms', 'computer science', '2 years', 50000);
 
 -- create computer science program
 INSERT INTO program(prog_code, prog_name, prog_duration, prog_cost)
-values('cyb', 'cyber security', '6 months', 50000);
+values('cyb', 'cyber security', '6 months', 25000);
+
+-- create gender and devlopment program
+INSERT INTO program(prog_code, prog_name, prog_duration, prog_cost)
+values('gn', 'gender and devlopment', '6 months', 15000);
+
+-- create course for banking and finance 
+INSERT INTO program(prog_code, prog_name, prog_duration, prog_cost)
+values('cat', 'certificate in accountance', '6 months', 35000);
 
 CREATE TABLE course(
     course_id VARCHAR(15),
@@ -110,11 +127,23 @@ ALTER TABLE course ADD COlUMN prog_code VARCHAR(10) AFTER course_name;
 ALTER TABLE course ADD FOREIGN KEY(prog_code) REFERENCES program(prog_code);
 
 -- insert into course
-INSERT INTO course(course_id, course_name, course_duration, course_pass_mark)
-VALUES('db101', 'database', '1 year', 50);
+INSERT INTO course(course_id, course_name, prog_code, course_duration, course_pass_mark)
+VALUES('db101', 'database1', 'cms', '1 year', 50);
 
-INSERT INTO course(course_id, course_name, course_duration, course_pass_mark)
-VALUES('web101', 'web development', '1 year', 50);
+INSERT INTO course(course_id, course_name, prog_code, course_duration, course_pass_mark)
+VALUES('web101', 'web development1', 'cms', '1 year', 50);
+
+INSERT INTO course(course_id, course_name, prog_code, course_duration, course_pass_mark)
+VALUES('cybsc', 'cyber security', 'cyb', '6 months', 40);
+
+INSERT INTO course(course_id, course_name, prog_code, course_duration, course_pass_mark)
+VALUES('web102', 'web development2', 'cms', '1 year', 50);
+
+INSERT INTO course(course_id, course_name, prog_code, course_duration, course_pass_mark)
+VALUES('java101', 'java1', 'cms', '1 year', 50);
+
+INSERT INTO course(course_id, course_name, prog_code, course_duration, course_pass_mark)
+VALUES('gnd101', 'gender and devlopment', 'gnd', '6 months', 50);
 
 
 CREATE TABLE student(
@@ -126,7 +155,7 @@ CREATE TABLE student(
     stu_address VARCHAR(100),
     stu_phone VARCHAR(12),
     stu_contact_person VARCHAR(12),
-    stu_GPA DECIMAL DEFAULT 0.00,
+    stu_GPA DECIMAL(3,2) DEFAULT 0.00,
     stu_credit_hour INT NOT NULL DEFAULT 0,
     stu_dept VARCHAR(10),
     PRIMARY KEY(stu_id),
@@ -145,6 +174,14 @@ VALUES('jallow', 'jarrie', 'f', 'west feild', '9899484', 'sister', 4.0, 30.00, '
 
 INSERT INTO student(stu_lName, stu_fName, stu_gender, stu_address, stu_phone, stu_contact_person, stu_GPA, stu_credit_hour, stu_dept)
 VALUES('saidy', 'alieu', 'm', 'kanifing', '2899484', 'father', 4.0, 30.00, 'hr');
+
+-- delete student from record
+DELETE FROM student WHERE stu_id = 2;
+
+-- update student department
+UPDATE student SET stu_dept = 'fn' WHERE stu_id = 3;
+--update student GPA
+UPDATE student SET stu_GPA = 3.20 WHERE stu_id = 3;
 
 CREATE TABLE semester(
     semester_code VARCHAR(10),
